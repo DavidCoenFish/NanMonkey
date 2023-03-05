@@ -122,6 +122,7 @@
     <ClCompile Include="UnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\.gitignore" />
     <None Include="Data\Test00\config.json" />
     <None Include="Data\Test00\Input\0\tag.json" />
     <None Include="Data\Test00\Input\1\tag.json" />

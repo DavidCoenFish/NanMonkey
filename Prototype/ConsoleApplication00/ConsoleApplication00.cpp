@@ -7,6 +7,8 @@
 #include "Random.h"
 #include "State.h"
 #include "Step.h"
+#include "TrainingData.h"
+#include "TrainingInput.h"
 
 #include "SDK/Nlohmann/json.hpp"
 
@@ -40,6 +42,8 @@ int main()
 	ok &= Random::UnitTest();
 	ok &= State::UnitTest();
 	ok &= Step::UnitTest();
+	ok &= TrainingData::UnitTest();
+	ok &= TrainingInput::UnitTest();
 	std::cout << (ok?"Pass":"Fail") << std::endl;
 	return ok;
 }

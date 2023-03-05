@@ -18,15 +18,12 @@ public:
 	friend std::ostream & operator<<(std::ostream & stream, const Network& network);
 	friend std::istream& operator>>(std::istream& stream, Network& network);
 
-	static std::shared_ptr<Network> Factory(const int x, const int y, const int z, const int seed, const int stepCount, const float chanceWeight, const float weightRange);
-	static std::shared_ptr<Network> Factory(const int x, const int y, const int z, const int seed, const int generation, const std::vector<std::shared_ptr<Step>>& stepArray);
+	static std::shared_ptr<Network> Factory(const int x, const int y, const int z, const std::vector<std::shared_ptr<Step>>& stepArray = std::vector<std::shared_ptr<Step>>());
 
 	explicit Network(
 		const int x = 0, 
 		const int y = 0, 
 		const int z = 0, 
-		const int seed = 0, 
-		const int generation = 0, 
 		const std::vector<std::shared_ptr<Step>>& stepArray = std::vector<std::shared_ptr<Step>>()
 	);
 
@@ -36,8 +33,6 @@ private:
 	int m_x; 
 	int m_y;
 	int m_z;
-	int m_seed;
-	int m_generation;
 	std::vector<std::shared_ptr<Step>> m_stepArray;
 
 };

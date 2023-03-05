@@ -11,6 +11,10 @@ class Random;
 class Step
 {
 public:
+#if defined(UNITTEST)
+	static const bool UnitTest();
+#endif
+
 	static std::shared_ptr<Step> Factory(const int x, const int y, const int z);
 	//produce a new step which is the invert operation of weights, to reverse the given step
 	static std::shared_ptr<Step> FactoryInvert(const Step& step);
@@ -25,10 +29,6 @@ public:
 
 	static std::shared_ptr<State> ApplyStep(const Step& step, const State& input);
 	static void PerturbStep(Step& step, Random& random, const float chanceOfModificationOfWeight = 0.1f, const float plusMinusMaxChangeWeight = 1.0f);
-
-#if defined(UNITTEST)
-	static const bool UnitTest();
-#endif
 
 private:
 	void ResizeWeights();

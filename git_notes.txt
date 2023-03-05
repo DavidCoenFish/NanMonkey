@@ -1,0 +1,7 @@
+https://github.com/DavidCoenFish/NanMonkey.git
+
+cd to parent dir where you want to repo
+git.exe clone https://github.com/DavidCoenFish/NanMonkey.git
+git.exe pull
+git.exe add .
+git.exe commit -m "initial commit"

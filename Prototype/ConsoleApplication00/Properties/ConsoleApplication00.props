@@ -3,8 +3,8 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\Output\</OutDir>
-    <IntDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\Intermediate\</IntDir>
+    <OutDir>$(SolutionDir)Build\$(Configuration)\Output\</OutDir>
+    <IntDir>$(SolutionDir)Build\$(Configuration)\Intermediate\</IntDir>
   </PropertyGroup>
   <ItemGroup />
 </Project>

@@ -113,6 +113,7 @@
     <None Include="Properties\ConsoleApplication00.props">
       <Filter>Properties</Filter>
     </None>
+    <None Include="..\..\.gitignore" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="notes.txt" />
