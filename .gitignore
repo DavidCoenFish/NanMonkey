@@ -7,6 +7,9 @@
 *.o
 *.obj
 
+# python
+*.spec
+
 # Precompiled Headers
 *.gch
 *.pch
@@ -27,6 +30,11 @@
 *.lib
 
 # Executables
-*.exe
+# *.exe
 *.out
 *.app
+
+# Visual studio
+.vs/
+Build/
+

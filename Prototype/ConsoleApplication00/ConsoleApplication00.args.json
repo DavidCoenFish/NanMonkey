@@ -1,0 +1,10 @@
+{
+  "FileVersion": 2,
+  "Id": "cefff130-0238-4b68-8be7-7a4802b8d6d5",
+  "Items": [
+    {
+      "Id": "952dc020-23e7-4c6f-88d9-3bab2a41a757",
+      "Command": "$(SolutionDir)Data\\Test00\\config.json $(SolutionDir)Output"
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="ConsoleApplication00.cpp" />
+    <ClCompile Include="Network.cpp" />
+    <ClCompile Include="State.cpp" />
+    <ClCompile Include="Step.cpp" />
+    <ClCompile Include="TrainingData.cpp" />
+    <ClCompile Include="TrainingInput.cpp" />
+    <ClCompile Include="NanMonkey.cpp" />
+    <ClCompile Include="Random.cpp" />
+    <ClCompile Include="SDK\Lodepng\lodepng.cpp">
+      <Filter>SDK\Lodepng</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Data">
+      <UniqueIdentifier>{5df8c079-ecb5-4720-9966-2e94cf6c5937}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Test00">
+      <UniqueIdentifier>{9e1ea28e-7a29-430d-a7ef-3c1a64bb25a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Test00\Input">
+      <UniqueIdentifier>{becf3ba9-6f74-4c01-897e-48c8ad5174ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Test00\Input\0">
+      <UniqueIdentifier>{a282330c-9a5a-48cf-b53e-49a239f34145}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Test00\Input\1">
+      <UniqueIdentifier>{b88031f5-cbea-48a4-877c-8df7d81a1b69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Test00\Input\2">
+      <UniqueIdentifier>{d4424c4a-3e4c-4594-a93a-0d6a815024a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Test00\Input\3">
+      <UniqueIdentifier>{0db44572-51a2-4149-a937-0d9f9c0ed3a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Test00\Input\4">
+      <UniqueIdentifier>{db4e9468-7d78-4b19-9b2e-b064d40fc245}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Test00\Input\5">
+      <UniqueIdentifier>{e3e02bfa-4cdc-4763-bd19-0f369b4e0460}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Test00\Input\6">
+      <UniqueIdentifier>{58295d0c-e690-4ea2-80da-9613f595cdc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Test00\Input\7">
+      <UniqueIdentifier>{ecaf87ae-146d-4e10-af63-31fdd2e6ea14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Test00\Input\8">
+      <UniqueIdentifier>{e61c10a9-4e10-4cd6-9fa4-c91d39454ec0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Test00\Input\9">
+      <UniqueIdentifier>{6bd427ae-7430-4dd5-9ddb-24076c268c41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Test00\Input\Invalid">
+      <UniqueIdentifier>{071003fe-de0d-4e55-b32d-ece5278417bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK">
+      <UniqueIdentifier>{49740a23-0443-4204-b876-e5700678c701}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\Lodepng">
+      <UniqueIdentifier>{8d0fd72d-a774-40b7-819a-2db0030159af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Properties">
+      <UniqueIdentifier>{4256a1ff-d67a-4c46-8743-c94889309db7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\Nlohmann">
+      <UniqueIdentifier>{695470ea-ce02-4d3e-b9b3-2f1dc1d0f033}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\Test00\Input\0\tag.json">
+      <Filter>Data\Test00\Input\0</Filter>
+    </None>
+    <None Include="Data\Test00\Input\1\tag.json">
+      <Filter>Data\Test00\Input\1</Filter>
+    </None>
+    <None Include="Data\Test00\Input\2\tag.json">
+      <Filter>Data\Test00\Input\2</Filter>
+    </None>
+    <None Include="Data\Test00\Input\3\tag.json">
+      <Filter>Data\Test00\Input\3</Filter>
+    </None>
+    <None Include="Data\Test00\Input\4\tag.json">
+      <Filter>Data\Test00\Input\4</Filter>
+    </None>
+    <None Include="Data\Test00\Input\5\tag.json">
+      <Filter>Data\Test00\Input\5</Filter>
+    </None>
+    <None Include="Data\Test00\Input\6\tag.json">
+      <Filter>Data\Test00\Input\6</Filter>
+    </None>
+    <None Include="Data\Test00\Input\7\tag.json">
+      <Filter>Data\Test00\Input\7</Filter>
+    </None>
+    <None Include="Data\Test00\Input\8\tag.json">
+      <Filter>Data\Test00\Input\8</Filter>
+    </None>
+    <None Include="Data\Test00\Input\9\tag.json">
+      <Filter>Data\Test00\Input\9</Filter>
+    </None>
+    <None Include="Data\Test00\config.json">
+      <Filter>Data\Test00</Filter>
+    </None>
+    <None Include="SDK\Lodepng\LICENSE">
+      <Filter>SDK\Lodepng</Filter>
+    </None>
+    <None Include="Properties\UnitTest.props">
+      <Filter>Properties</Filter>
+    </None>
+    <None Include="Properties\ConsoleApplication00.props">
+      <Filter>Properties</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="notes.txt" />
+    <Text Include="SDK\Nlohmann\readme.txt">
+      <Filter>SDK\Nlohmann</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Network.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="Step.h" />
+    <ClInclude Include="TrainingData.h" />
+    <ClInclude Include="TrainingInput.h" />
+    <ClInclude Include="Macro.h" />
+    <ClInclude Include="Stdafx.h" />
+    <ClInclude Include="NanMonkey.h" />
+    <ClInclude Include="Random.h" />
+    <ClInclude Include="SDK\Lodepng\lodepng.h">
+      <Filter>SDK\Lodepng</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Nlohmann\json_fwd.hpp">
+      <Filter>SDK\Nlohmann</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Nlohmann\json.hpp">
+      <Filter>SDK\Nlohmann</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitTest.h" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,10 @@
+{
+	"input": {
+		"type": "image_greyscale",
+		"dimentions": [ 32, 32, 1 ]
+	},
+	"output": {
+		"type": "tags",
+		"data": [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ]
+	}
+}

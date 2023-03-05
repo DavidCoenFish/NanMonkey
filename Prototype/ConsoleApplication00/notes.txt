@@ -1,0 +1,28 @@
+State<X,Y,Z>
+ Array<float,X * Y * Z> m_valueArray;
+
+Step<X,Y,Z>
+ Array<float,X * Y * Z> m_valueArray;
+ Array<float,X * Y * Z> m_inputWeight;
+
+Network<X,Y,Z>
+ int m_seed; //
+ int m_generation;
+ Vector<Step<X,Y,Z>> m_stepArray;	
+
+TrainingInput
+  State<X,Y,Z> m_input;
+  State<X,Y,Z> m_target;
+
+TrainingData
+  Vector <TrainingInput>
+
+Load TrainingInput
+EvalueNetwork(Input, network, out target)
+CalculateSorce(target, goal)
+
+Load/Save Network
+Network SeedNetwork(TrainingInput, retry count, initial step count, chance of input weight, standard deviation)
+Network Evolve(TrainingInput, Network, retry count, chance to modify any input weight, standard deviation, chance to modify fail try weight) 
+
+
