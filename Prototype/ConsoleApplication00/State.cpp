@@ -3,6 +3,7 @@
 #include "NanMonkey.h"
 #include "Macro.h"
 #include "UnitTest.h"
+#include "SDK/Lodepng/lodepng.h"
 
 #if defined(UNITTEST)
 const bool State::UnitTest()
@@ -35,6 +36,48 @@ const bool State::UnitTest()
 	return ok;
 }
 #endif
+
+std::vector< float > State::TagMapToData(const int x, const int y, const int z, const std::map<std::string, float>& tagMap)
+{
+	const int size = NanMonkey::GetSize(x,y,z);
+	std::vector< float > result(size);
+	auto iter = tagMap.begin();
+	for (int index = 0; index < size; ++index)
+	{
+		float value = 0.0f;
+		if (iter != tagMap.end())
+		{
+			value = iter->second;
+		}
+		result[index] = value;
+	}
+	return result;
+}
+
+std::vector< float > State::PngGreyscaleToData(const int x, const int y, const int z, const std::string& filePath)
+{
+	std::vector<unsigned char> image;
+	unsigned width, height;
+	unsigned error = lodepng::decode(image, width, height, filePath.c_str(), LCT_GREY, 8);
+
+	const int size = NanMonkey::GetSize(x,y,z);
+	std::vector< float > result(size);
+	for (int indexY = 0; indexY < y; ++indexY)
+	{
+		for (int indexX = 0; indexX < x; ++indexX)
+		{
+			const int offset = NanMonkey::GetOffset(x, y, z, indexX, indexY, 0);
+			float value = 0.0f;
+			if ((indexX < (int)width) && (indexY < (int)height))
+			{
+				value = NanMonkey::ByteToFloat(image[indexX + (indexY * width)]);
+			}
+
+			result[offset] = value;
+		}
+	}
+	return result;
+}
 
 std::shared_ptr<State> State::Factory(const int x, const int y, const int z, const std::vector< float >& dataOrEmpty)
 {
@@ -127,3 +170,10 @@ void State::ResizeData()
 	const int size = NanMonkey::GetSize(m_x, m_y, m_z);
 	m_data.resize(size, 0.0f);
 }
+
+const float State::GetValue(const int indexX, const int indexY, const int indexZ) const
+{
+	int offset = NanMonkey::GetOffset(m_x, m_y, m_z, indexX, indexY, indexZ);
+	return m_data[offset];
+}
+

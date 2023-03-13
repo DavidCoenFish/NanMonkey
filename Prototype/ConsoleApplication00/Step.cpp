@@ -45,6 +45,37 @@ const bool Step::UnitTest()
 		}
 	}
 
+	if (ok)
+	{
+		auto pStep = Factory(2,2,2);
+		ok &= UNIT_TEST_COMPARE(8, (int)pStep->m_weights.size());
+
+		for (int index = 0; index < 8; ++index)
+		{
+			for (int subIndex = 0; subIndex < 8; ++subIndex)
+			{
+				pStep->m_weights[index][subIndex] = subIndex * 1.0f;
+			}
+		}
+
+		auto pStage = State::Factory(2,2,2, std::vector<float>({0, -0.1f, 0.1f, 0,0,0,0,0}));
+
+		auto pOutput = Step::ApplyStep(*pStep, *pStage);
+
+		ok &= UNIT_TEST_NOT_NULL(pOutput.get());
+
+		for (int indexZ = 0; indexZ < 2; ++indexZ)
+		{
+			for (int indexY = 0; indexY < 2; ++indexY)
+			{
+				for (int indexX = 0; indexX < 2; ++indexX)
+				{
+					ok &= UNIT_TEST_COMPARE(0.1f, pOutput->GetValue(indexX, indexY, indexZ));
+				}
+			}
+		}
+	}
+
 	return ok;
 }
 #endif

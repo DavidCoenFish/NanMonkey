@@ -3,6 +3,27 @@
 #include "Macro.h"
 #include "UnitTest.h"
 
+#if defined(UNITTEST)
+const bool Random::UnitTest()
+{
+	UNIT_TEST_HEAD("Random");
+
+	bool ok = true;
+
+	if (ok)
+	{
+		auto pRandom0 = FactorySeed(42);
+		auto pRandom1 = FactorySeed(42);
+		for (int index = 0; index < 100; ++index)
+		{
+			ok &= UNIT_TEST_COMPARE(pRandom0->GetPlusMinus(2.0f), pRandom1->GetPlusMinus(2.0f));
+		}
+	}
+
+	return ok;
+}
+#endif
+
 std::shared_ptr<Random> Random::Factory()
 {
 	return std::make_shared< Random >( 0 );
@@ -31,24 +52,3 @@ const float Random::GetPlusMinus(const float radius)
 {
 	return (radius * m_distributionMinusOnePlusOne(m_random));
 }
-
-#if defined(UNITTEST)
-const bool Random::UnitTest()
-{
-	UNIT_TEST_HEAD("Random");
-
-	bool ok = true;
-
-	if (ok)
-	{
-		auto pRandom0 = FactorySeed(42);
-		auto pRandom1 = FactorySeed(42);
-		for (int index = 0; index < 100; ++index)
-		{
-			ok &= UNIT_TEST_COMPARE(pRandom0->GetPlusMinus(2.0f), pRandom1->GetPlusMinus(2.0f));
-		}
-	}
-
-	return ok;
-}
-#endif

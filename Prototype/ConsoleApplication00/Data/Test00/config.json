@@ -2,7 +2,7 @@
 	"input": {
 		"type": "image_greyscale",
 		"dimentions": [ 32, 32, 1 ],
-		"path": "Input"
+		"subPath":"Input"
 	},
 	"output": {
 		"type": "tags",
