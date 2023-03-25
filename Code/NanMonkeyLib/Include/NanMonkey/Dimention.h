@@ -1,3 +1,5 @@
+#pragma once
+
 namespace NanMonkey
 {
 	class Index;
@@ -11,6 +13,8 @@ namespace NanMonkey
 
 		const int CalculateLength() const;
 		const int CalculateOffset(const Index& index) const;
+
+		const bool operator==(const Dimention& rhs) const;
 
 	private:
 		std::vector<int> m_data;

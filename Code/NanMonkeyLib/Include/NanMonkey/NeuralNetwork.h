@@ -1,3 +1,5 @@
+#pragma once
+
 namespace NanMonkey
 {
 	class Step;
@@ -9,11 +11,12 @@ namespace NanMonkey
 		// FactoryInsertStep
 		//static std::shared_ptr<NeuralNetwork> FactoryScoreMutateNoCortex(Random& random, 
 
-		NeuralNetwork(const std::vector<std::shared<Step>>& stepArray);
+		NeuralNetwork(const std::vector<std::shared_ptr<Step>>& stepArray = std::vector<std::shared_ptr<Step>>());
 
-		std::shared<Stage> Perform(const Stage& input) const;
+		std::shared_ptr<Stage> Perform(const Stage& input) const;
 
 	private:
-		std::vector<std::shared<Step>> m_stepArray;
+		std::vector<std::shared_ptr<Step>> m_stepArray;
+
 	};
 }
