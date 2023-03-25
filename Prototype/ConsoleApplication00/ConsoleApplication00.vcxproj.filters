@@ -13,6 +13,7 @@
       <Filter>SDK\Lodepng</Filter>
     </ClCompile>
     <ClCompile Include="UnitTest.cpp" />
+    <ClCompile Include="VisualCortex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Data">
@@ -141,5 +142,6 @@
       <Filter>SDK\Nlohmann</Filter>
     </ClInclude>
     <ClInclude Include="UnitTest.h" />
+    <ClInclude Include="VisualCortex.h" />
   </ItemGroup>
 </Project>

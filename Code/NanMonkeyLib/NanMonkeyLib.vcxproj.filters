@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{60c57578-50ff-45f1-b7ec-1a3645aee644}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{df03253b-2740-4a1c-abbe-b57e1ed49688}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Props">
+      <UniqueIdentifier>{0db99602-ebae-42e2-b1a1-1bbf249e48a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\NanMonkey">
+      <UniqueIdentifier>{5ed9c974-432f-4617-a80b-44e9e8fdffcd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\pch.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\NanMonkey.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\pch.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\NanMonkey\Index.h">
+      <Filter>Include\NanMonkey</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\NanMonkey\NanMonkey.h">
+      <Filter>Include\NanMonkey</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\NanMonkey\NeuralNetwork.h">
+      <Filter>Include\NanMonkey</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\NanMonkey\Random.h">
+      <Filter>Include\NanMonkey</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\NanMonkey\Stage.h">
+      <Filter>Include\NanMonkey</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\NanMonkey\Step.h">
+      <Filter>Include\NanMonkey</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\NanMonkey\StepPixel.h">
+      <Filter>Include\NanMonkey</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\NanMonkey\Dimention.h">
+      <Filter>Include\NanMonkey</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

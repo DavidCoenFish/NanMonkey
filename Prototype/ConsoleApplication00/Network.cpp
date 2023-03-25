@@ -50,6 +50,23 @@ const bool Network::UnitTest()
 //	return std::make_shared<Network> (x, y, z, seed, 0, stepArray);
 //}
 
+std::vector<std::shared_ptr<Step>> Network::GenerateStepArrayVisualCortex(const int x, const int y, const int z, const int stride)
+{
+}
+/*
+input 16x16, stride 4
+step 0:
+16x16, all index are VisualCortex
+step 1:
+16x16, top 4x4 
+step 2:
+16x16, top 1x1 
+*/
+const bool Network::IsIndexVisualCortex(const int x, const int y, const int z, const int stride, const int indexX, const int indexY, const int indexZ, const int stepIndex)
+{
+
+}
+
 std::shared_ptr<Network> Network::Factory(const int x, const int y, const int z, const std::vector<std::shared_ptr<Step>>& stepArray)
 {
 	return std::make_shared<Network> (x, y, z, stepArray);

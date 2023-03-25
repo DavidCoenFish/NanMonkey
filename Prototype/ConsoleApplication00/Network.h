@@ -18,6 +18,9 @@ public:
 	friend std::ostream & operator<<(std::ostream & stream, const Network& network);
 	friend std::istream& operator>>(std::istream& stream, Network& network);
 
+	static std::vector<std::shared_ptr<Step>> GenerateStepArrayVisualCortex(const int x, const int y, const int z, const int stride);
+	static const bool IsIndexVisualCortex(const int x, const int y, const int z, const int stride, const int indexX, const int indexY, const int indexZ, const int stepIndex);
+
 	static std::shared_ptr<Network> Factory(const int x, const int y, const int z, const std::vector<std::shared_ptr<Step>>& stepArray = std::vector<std::shared_ptr<Step>>());
 
 	explicit Network(

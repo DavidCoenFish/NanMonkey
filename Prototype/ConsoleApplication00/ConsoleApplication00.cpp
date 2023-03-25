@@ -10,6 +10,7 @@
 #include "Step.h"
 #include "TrainingData.h"
 #include "TrainingInput.h"
+#include "VisualCortex.h"
 
 #include "SDK/Nlohmann/json.hpp"
 
@@ -47,6 +48,7 @@ int main()
 	ok &= Step::UnitTest();
 	ok &= TrainingData::UnitTest();
 	ok &= TrainingInput::UnitTest();
+	ok &= VisualCortex::UnitTest();
 	std::cout << (ok?"Pass":"Fail") << std::endl;
 	return ok;
 }
@@ -73,8 +75,6 @@ int main(const int argc, const char** argv)
 			config.input.dimentions[1], 
 			config.input.dimentions[2]
 		);
-
-		std::map< std::string, float> baseTargetMap;
 
 		//load training data
 		auto pTrainingData = TrainingData::FactoryImageGreyscale(

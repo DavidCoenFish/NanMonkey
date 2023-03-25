@@ -120,6 +120,7 @@
     <ClCompile Include="TrainingData.cpp" />
     <ClCompile Include="TrainingInput.cpp" />
     <ClCompile Include="UnitTest.cpp" />
+    <ClCompile Include="VisualCortex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\.gitignore" />
@@ -156,6 +157,7 @@
     <ClInclude Include="TrainingData.h" />
     <ClInclude Include="TrainingInput.h" />
     <ClInclude Include="UnitTest.h" />
+    <ClInclude Include="VisualCortex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
