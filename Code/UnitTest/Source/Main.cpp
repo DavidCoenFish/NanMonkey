@@ -1,10 +1,12 @@
 #include "Main.h"
+#include "Simple.h"
 #include <iostream>
 
 int main()
 {
 	bool ok = true;
 	std::cout << "UnitTest" << std::endl;
+	ok &= Simple::UnitTest();
 	//ok &= NanMonkey::UnitTest();
 	//ok &= Network::UnitTest();
 	//ok &= Random::UnitTest();

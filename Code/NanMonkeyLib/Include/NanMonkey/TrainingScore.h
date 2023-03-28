@@ -1,32 +1,35 @@
 #pragma once
 
-#include "Index.h"
+#include "Dimention.h"
 
+/*
+want more data for each pixel to guide training
+*/
 namespace NanMonkey
 {
-	class Dimention;
 	class Stage;
 
-	class StepPixel
+	class TrainingScore
 	{
 	public:
-		class Reference
+		class PixelData
 		{
 		public:
-			const float GetWeight() const { return m_weight; }
-			const Index& GetIndex() const { return m_index; }
-
+			PixelData();
+			void AddSample(const float delta);
 		private:
-			float m_weight;
-			Index m_index;
+			int m_sampleCount;
+			float m_sumPositive;
+			float m_sumNegative;
 		};
 
-	public:
-		StepPixel(const std::vector<Reference>& reference = std::vector<Reference>());
+		TrainingScore(const Dimention& dimention);
 
-		const float EvaluePixel(const Dimention& dimention, const Stage& input) const;
+		void GatherScore(const Stage& target, const Stage& actualResult);
 
 	private:
-		std::vector<Reference> m_referenceArray;
+		Dimention m_dimention;
+		std::vector<PixelData> m_pixelDataArray;
+
 	};
 }

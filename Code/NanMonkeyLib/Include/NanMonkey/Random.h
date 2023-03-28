@@ -10,8 +10,11 @@ namespace NanMonkey
 
 		Random(const int seed);
 		const bool TestPassFail(const float threashold = 0.5f);
+		//range [-radius to +radius]
 		const float GetPlusMinusFloat(const float radius);
-		const float GetPlusMinusInt(const int radius);
+		const int GetPlusMinusInt(const int radius);
+
+		void GenerateRangeFloatVisitor(const int count, const float low, const float high, const std::function<void(const float)>& visitor);
 
 	private:
 		typedef std::mt19937 TRandom;

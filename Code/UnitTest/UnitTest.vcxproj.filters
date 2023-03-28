@@ -17,9 +17,21 @@
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Simple.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitTest.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Main.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Simple.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitTest.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

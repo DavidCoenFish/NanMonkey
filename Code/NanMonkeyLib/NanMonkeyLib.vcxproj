@@ -23,6 +23,9 @@
     <ClCompile Include="Source\Stage.cpp" />
     <ClCompile Include="Source\Step.cpp" />
     <ClCompile Include="Source\StepPixel.cpp" />
+    <ClCompile Include="Source\Tag.cpp" />
+    <ClCompile Include="Source\TrainingData.cpp" />
+    <ClCompile Include="Source\TrainingScore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\NanMonkey\Dimention.h" />
@@ -33,6 +36,10 @@
     <ClInclude Include="Include\NanMonkey\Stage.h" />
     <ClInclude Include="Include\NanMonkey\Step.h" />
     <ClInclude Include="Include\NanMonkey\StepPixel.h" />
+    <ClInclude Include="Include\NanMonkey\Tag.h" />
+    <ClInclude Include="Include\NanMonkey\Training.h" />
+    <ClInclude Include="Include\NanMonkey\TrainingData.h" />
+    <ClInclude Include="Include\NanMonkey\TrainingScore.h" />
     <ClInclude Include="Source\pch.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

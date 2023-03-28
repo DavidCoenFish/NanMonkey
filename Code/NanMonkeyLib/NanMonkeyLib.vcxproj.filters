@@ -46,6 +46,15 @@
     <ClCompile Include="Source\StepPixel.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\TrainingData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TrainingScore.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tag.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\pch.h">
@@ -73,6 +82,18 @@
       <Filter>Include\NanMonkey</Filter>
     </ClInclude>
     <ClInclude Include="Include\NanMonkey\Dimention.h">
+      <Filter>Include\NanMonkey</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\NanMonkey\Training.h">
+      <Filter>Include\NanMonkey</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\NanMonkey\TrainingData.h">
+      <Filter>Include\NanMonkey</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\NanMonkey\TrainingScore.h">
+      <Filter>Include\NanMonkey</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\NanMonkey\Tag.h">
       <Filter>Include\NanMonkey</Filter>
     </ClInclude>
   </ItemGroup>

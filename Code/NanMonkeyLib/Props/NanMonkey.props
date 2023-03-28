@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <BuildPath>$(ProjectDir)..\..\Build\$(ProjectName)\$(PlatformName)\$(ConfigurationName)\</BuildPath>
+    <BuildPath>$(ProjectDir)..\..\Build\$(ProjectName)\$(PlatformName)\$(Configuration)\</BuildPath>
   </PropertyGroup>
   <PropertyGroup>
     <OutDir>$(BuildPath)Output\</OutDir>
@@ -11,6 +11,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>$(ProjectDir)Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

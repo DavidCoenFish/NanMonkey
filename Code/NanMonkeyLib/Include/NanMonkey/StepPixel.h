@@ -27,6 +27,7 @@ namespace NanMonkey
 		const float EvaluePixel(const Dimention& dimention, const Stage& input) const;
 
 	private:
+		//flag for pixel being locked~ don't want to mutate "visual cortex"
 		std::vector<Reference> m_referenceArray;
 	};
 }

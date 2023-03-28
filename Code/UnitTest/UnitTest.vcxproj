@@ -84,9 +84,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Simple.cpp" />
+    <ClCompile Include="Source\UnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Main.h" />
+    <ClInclude Include="Source\Simple.h" />
+    <ClInclude Include="Source\UnitTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

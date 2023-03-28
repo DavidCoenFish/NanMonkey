@@ -1,32 +1,32 @@
 #pragma once
 
-#include "Index.h"
+#include "Stage.h"
 
 namespace NanMonkey
 {
-	class Dimention;
-	class Stage;
-
-	class StepPixel
+	class TrainingData
 	{
 	public:
-		class Reference
+		class Data
 		{
 		public:
-			const float GetWeight() const { return m_weight; }
-			const Index& GetIndex() const { return m_index; }
+			Data(const std::shared_ptr<Stage>& input, const std::shared_ptr<Stage>& target);
+
+			const Stage& GetInput() const { return (*m_input); }
+			const Stage& GetTarget() const { return (*m_target); }
 
 		private:
-			float m_weight;
-			Index m_index;
+			std::shared_ptr<Stage> m_input;
+			std::shared_ptr<Stage> m_target;
 		};
 
 	public:
-		StepPixel(const std::vector<Reference>& reference = std::vector<Reference>());
+		TrainingData(const std::vector<std::shared_ptr<Data>>& dataArray = std::vector<std::shared_ptr<Data>>());
 
-		const float EvaluePixel(const Dimention& dimention, const Stage& input) const;
+		void Visit(const std::function<void(const Stage&,const Stage&)>& visitor);
 
 	private:
-		std::vector<Reference> m_referenceArray;
+		std::vector<std::shared_ptr<Data>> m_dataArray;
+
 	};
 }

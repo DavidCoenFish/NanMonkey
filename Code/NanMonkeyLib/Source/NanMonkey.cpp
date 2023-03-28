@@ -11,3 +11,17 @@ void NanMonkey::NanAssert(const bool condition, const char* message)
 	std::cout << message << std::endl;
 	assert(condition);
 }
+
+const float NanMonkey::NanClamp(const float value, const float low, const float high)
+{
+	if (value < low)
+	{
+		return low;
+	}
+	if (high < low)
+	{
+		return high;
+	}
+	return value;
+}
+
