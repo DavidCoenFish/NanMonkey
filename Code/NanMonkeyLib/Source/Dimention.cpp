@@ -66,3 +66,8 @@ const bool NanMonkey::Dimention::operator==(const Dimention& rhs) const
 	}
 	return true;
 }
+
+const bool NanMonkey::Dimention::operator!=(const Dimention& rhs) const
+{
+	return !(this->operator==(rhs));
+}

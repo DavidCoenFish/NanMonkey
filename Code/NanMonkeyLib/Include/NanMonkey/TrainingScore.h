@@ -17,6 +17,8 @@ namespace NanMonkey
 		public:
 			PixelData();
 			void AddSample(const float delta);
+			const float GetAverage() const;
+			const float GetScore() const;
 		private:
 			int m_sampleCount;
 			float m_sumPositive;
@@ -26,10 +28,16 @@ namespace NanMonkey
 		TrainingScore(const Dimention& dimention);
 
 		void GatherScore(const Stage& target, const Stage& actualResult);
+		const float GetDeltaScore();
+
+		const Dimention& GetDimention() const { return m_dimention; }
 
 	private:
 		Dimention m_dimention;
 		std::vector<PixelData> m_pixelDataArray;
+
+		bool m_deltaScoreValid;
+		float m_deltaScore;
 
 	};
 }

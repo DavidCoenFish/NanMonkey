@@ -9,12 +9,14 @@ namespace NanMonkey
 	class Stage
 	{
 	public:
-		static std::shared_ptr<Stage> FactoryTag(const Dimention& dimention, const std::vector<Tag>& tag);
+		static std::shared_ptr<Stage> FactoryTag(const Dimention& dimention, const std::vector<Tag>& tag, const std::map<std::string, float>& tagValue);
 		static std::shared_ptr<Stage> Factory(const Dimention& dimention, const std::vector<float>& data);
 
+		Stage(const Stage& rhs);
 		Stage(const Dimention& dimention, const std::vector<float>& data = std::vector<float>());
 
-		const bool CheckDimention(const Dimention& dimention) const;
+		//const bool CheckDimention(const Dimention& dimention) const;
+		const Dimention& GetDimention() const { return m_dimention; }
 		const float GetValue(const Index& index) const;
 
 		static void DeltaVisitor(const Stage& target, const Stage& actualResult, const std::function<void(const float)>& visitor);

@@ -13,7 +13,7 @@ NanMonkey::Step::Step(const Dimention& dimention, const std::vector<std::shared_
 
 std::shared_ptr<NanMonkey::Stage> NanMonkey::Step::Perform(const Stage& input) const
 {
-	if (false == input.CheckDimention(m_dimention))
+	if (false == (input.GetDimention() == m_dimention))
 	{
 		return nullptr;
 	}

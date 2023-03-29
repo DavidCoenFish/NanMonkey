@@ -3,11 +3,11 @@
 
 
 NanMonkey::Tag::Tag(
-	const std::string& name,
-	const float value
+	const std::string& name//,
+	//const float value
 	)
 	: m_name(name)
-	, m_value(value)
+	//, m_value(value)
 {
 	return;
 }

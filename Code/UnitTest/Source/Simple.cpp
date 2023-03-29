@@ -5,8 +5,10 @@
 
 #include "NanMonkey/Dimention.h"
 #include "NanMonkey/Random.h"
+#include "NanMonkey/NeuralNetwork.h"
 #include "NanMonkey/Stage.h"
 #include "NanMonkey/Tag.h"
+#include "NanMonkey/Train.h"
 #include "NanMonkey/TrainingData.h"
 
 const bool Simple::UnitTest()
@@ -21,12 +23,14 @@ const bool Simple::UnitTest()
 		NanMonkey::Dimention dimention(std::vector<int>({4,4}));
 		const int dimentionLength = dimention.CalculateLength();
 
-		std::vector<std::shared_ptr<NanMonkey::TrainingData::Data>> trainingData;
+		std::vector<NanMonkey::Tag> tagArray;
+		tagArray.push_back(NanMonkey::Tag("a"));
+		tagArray.push_back(NanMonkey::Tag("b"));
+		std::vector<std::shared_ptr<NanMonkey::TrainingData::Data>> trainingDataArray;
 		{
-			std::vector<NanMonkey::Tag> tagArray;
-			tagArray.push_back(NanMonkey::Tag("a", 1.0f));
-			tagArray.push_back(NanMonkey::Tag("b", -1.0f));
-			auto pTarget = NanMonkey::Stage::FactoryTag(dimention, tagArray);
+			std::map<std::string, float> tagValue({{"a", 1.0f}, {"b", -1.0f}});
+			auto pTarget = NanMonkey::Stage::FactoryTag(dimention, tagArray, tagValue);
+
 			for (int index = 0; index < 8; ++index)
 			{
 				std::vector<float> data;
@@ -34,14 +38,12 @@ const bool Simple::UnitTest()
 					data.push_back(value);
 					});
 				auto pInput = NanMonkey::Stage::Factory(dimention, data);
-				trainingData.push_back(std::make_shared<NanMonkey::TrainingData::Data>(pInput, pTarget));
+				trainingDataArray.push_back(std::make_shared<NanMonkey::TrainingData::Data>(pInput, pTarget));
 			}
 		}
 		{
-			std::vector<NanMonkey::Tag> tagArray;
-			tagArray.push_back(NanMonkey::Tag("a", -1.0f));
-			tagArray.push_back(NanMonkey::Tag("b", 1.0f));
-			auto pTarget = NanMonkey::Stage::FactoryTag(dimention, tagArray);
+			std::map<std::string, float> tagValue({{"a", -1.0f}, {"b", 1.0f}});
+			auto pTarget = NanMonkey::Stage::FactoryTag(dimention, tagArray, tagValue);
 			for (int index = 0; index < 8; ++index)
 			{
 				std::vector<float> data;
@@ -49,11 +51,22 @@ const bool Simple::UnitTest()
 					data.push_back(value);
 					});
 				auto pInput = NanMonkey::Stage::Factory(dimention, data);
-				trainingData.push_back(std::make_shared<NanMonkey::TrainingData::Data>(pInput, pTarget));
+				trainingDataArray.push_back(std::make_shared<NanMonkey::TrainingData::Data>(pInput, pTarget));
 			}
 		}
 
-		//train a neural network to 
+		auto pNeuralNetwork = std::make_shared<NanMonkey::NeuralNetwork>();
+		auto pTrainingData = std::make_shared<NanMonkey::TrainingData>(trainingDataArray);
+
+		//train a neural network
+		for (int index = 0; index < 16; ++index)
+		{
+			pNeuralNetwork = NanMonkey::Train(*pNeuralNetwork, *pTrainingData, *random, [](const std::string& output){
+				MESSAGE(output)
+				});
+		}
+
+
 	}
 
 	return ok;

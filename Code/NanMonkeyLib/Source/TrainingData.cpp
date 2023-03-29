@@ -14,7 +14,7 @@ NanMonkey::TrainingData::TrainingData(const std::vector<std::shared_ptr<Data>>& 
 	return;
 }
 
-void NanMonkey::TrainingData::Visit(const std::function<void(const Stage&,const Stage&)>& visitor)
+void NanMonkey::TrainingData::Visit(const std::function<void(const Stage&,const Stage&)>& visitor) const
 {
 	for (const auto& iter: m_dataArray)
 	{

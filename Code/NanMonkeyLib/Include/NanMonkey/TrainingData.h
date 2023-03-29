@@ -23,7 +23,7 @@ namespace NanMonkey
 	public:
 		TrainingData(const std::vector<std::shared_ptr<Data>>& dataArray = std::vector<std::shared_ptr<Data>>());
 
-		void Visit(const std::function<void(const Stage&,const Stage&)>& visitor);
+		void Visit(const std::function<void(const Stage&,const Stage&)>& visitor) const;
 
 	private:
 		std::vector<std::shared_ptr<Data>> m_dataArray;

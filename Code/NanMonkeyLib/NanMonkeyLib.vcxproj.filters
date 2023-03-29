@@ -55,6 +55,9 @@
     <ClCompile Include="Source\Tag.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Train.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\pch.h">
@@ -84,7 +87,7 @@
     <ClInclude Include="Include\NanMonkey\Dimention.h">
       <Filter>Include\NanMonkey</Filter>
     </ClInclude>
-    <ClInclude Include="Include\NanMonkey\Training.h">
+    <ClInclude Include="Include\NanMonkey\Train.h">
       <Filter>Include\NanMonkey</Filter>
     </ClInclude>
     <ClInclude Include="Include\NanMonkey\TrainingData.h">
