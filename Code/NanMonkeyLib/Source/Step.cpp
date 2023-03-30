@@ -1,13 +1,30 @@
 #include "pch.h"
 #include "NanMonkey/Step.h"
 
+#include "NanMonkey/NanMonkey.h"
 #include "NanMonkey/Stage.h"
 #include "NanMonkey/StepPixel.h"
+
+std::shared_ptr<NanMonkey::Step> NanMonkey::Step::FactoryCopyStep(const Dimention& dimention)
+{
+	const int length = dimention.CalculateLength();
+	std::vector<std::shared_ptr<StepPixel>> data(length);
+	for (int index = 0; index < length; ++index)
+	{
+		const auto indexObject = dimention.ReverseCalculateOffset(index);
+		std::vector<StepPixel::Reference> referenceAray;
+		referenceAray.push_back(StepPixel::Reference(1.0f, indexObject));
+		data[index] = std::make_shared<StepPixel>(referenceAray);
+	}
+
+	return std::make_shared<Step>(dimention, data);
+}
 
 NanMonkey::Step::Step(const Dimention& dimention, const std::vector<std::shared_ptr<StepPixel>>& data)
 	: m_dimention(dimention)
 	, m_data(data)
 {
+	NanAssert(m_data.size() == m_dimention.CalculateLength(), "bad param");
 	return;
 }
 

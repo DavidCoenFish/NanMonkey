@@ -4,14 +4,14 @@
 #include "NanMonkey/Step.h"
 
 
-std::shared_ptr<NanMonkey::NeuralNetwork> NanMonkey::NeuralNetwork::FactorySeed(const TrainingScore& score)
-{
-
-}
-
-std::shared_ptr<NanMonkey::NeuralNetwork> NanMonkey::NeuralNetwork::FactoryPerturb(const NeuralNetwork& neuralNetwork, const TrainingScore& score, const Random& random, const float weight)
-{
-}
+//std::shared_ptr<NanMonkey::NeuralNetwork> NanMonkey::NeuralNetwork::FactorySeed(const TrainingScore& score)
+//{
+//
+//}
+//
+//std::shared_ptr<NanMonkey::NeuralNetwork> NanMonkey::NeuralNetwork::FactoryPerturb(const NeuralNetwork& neuralNetwork, const TrainingScore& score, const Random& random, const float weight)
+//{
+//}
 
 //
 //NanMonkey::NeuralNetwork::NeuralNetwork(const NeuralNetwork& rhs)
@@ -52,8 +52,15 @@ std::shared_ptr<NanMonkey::Stage> NanMonkey::NeuralNetwork::Perform(const Stage&
 
 const int NanMonkey::NeuralNetwork::GetStepCount() const
 {
-	return m_stepArray.size();
+	return (int)m_stepArray.size();
 }
 
+//void NanMonkey::NeuralNetwork::ClearScore()
+//{
+//	for (auto& iter : m_stepArray)
+//	{
+//		iter->ClearScore();
+//	}
+//}
 
 

@@ -5,6 +5,7 @@
 #include "NanMonkey/TrainingData.h"
 #include "NanMonkey/TrainingScore.h"
 #include "NanMonkey/Random.h"
+#include "NanMonkey/Step.h"
 
 namespace 
 {
@@ -23,11 +24,25 @@ namespace
 
 		return pResult;
 	}
+
+	std::shared_ptr<NanMonkey::NeuralNetwork> FactoryNeuralNetworkSeed(const NanMonkey::Dimention& score)
+	{
+		//make a copy step
+		std::vector<std::shared_ptr<NanMonkey::Step>> stepArray;
+		stepArray.push_back(NanMonkey::Step::FactoryCopyStep(score.GetDimention()));
+
+		return std::make_shared<NanMonkey::NeuralNetwork>(stepArray);
+	}
+
+	std::shared_ptr<NanMonkey::NeuralNetwork> FactoryNeuralNetworkPerturb(const NanMonkey::NeuralNetwork& neuralNetwork, const NanMonkey::TrainingScore& score, const NanMonkey::Random& random, const float weight)
+	{
+		return nullptr;
+	}
 }
 
 const bool NanMonkey::Train(
-	std::shared_ptr<NanMonkey::NeuralNetwork>& outNeuralNetwork,
-	std::shared_ptr<NanMonkey::TrainingScore>& inOutScore,
+	std::shared_ptr<NeuralNetwork>& outNeuralNetwork,
+	std::shared_ptr<TrainingScore>& inOutScore,
 	const NeuralNetwork& neuralNetwork, 
 	const TrainingData& trainingData, 
 	Random& random, 
@@ -51,23 +66,19 @@ const bool NanMonkey::Train(
 	const int stepCount = neuralNetwork.GetStepCount();
 	if (0 == stepCount)
 	{
-		if(log) log("average delta score is zero, training done");
-		//outNeuralNetwork = std::make_shared<NanMonkey::NeuralNetwork>(neuralNetwork);
-		//outNeuralNetwork->InsertCopyStep(0);
-		//outNeuralNetwork->EnforceScoreStep(0, 1.0f, *inOutScore);
-		outNeuralNetwork = NanMonkey::NeuralNetwork::FactorySeed(*inOutScore);
+		if(log) log("seed NeuralNetwork");
+		outNeuralNetwork = FactoryNeuralNetworkSeed(*inOutScore);
 		inOutScore = nullptr;
 		return true;
 	}
 
+	//make a small changes, and if one is better, return; make more and more drastic changes till we give up
+
 	int countDown = 3;
-	//pResult->EnforceScoreStep(stepCount - 1, 1.0f / ((float)(stepCount + 1)), *inOutScore);
-	//make a few small changes, and if one is better, return; make more and more drastic changes till we give up
 	for (int index = 0; index < attemptMax; ++index)
 	{
-		//auto pCandidate = std::make_shared<NanMonkey::NeuralNetwork>(*pResult);
 		const float weight = ((float)(index + 1)) / ((float)(attemptMax));
-		auto pCandidate = NanMonkey::NeuralNetwork::FactoryPerturb(neuralNetwork, *inOutScore, random, weight);
+		auto pCandidate = FactoryNeuralNetworkPerturb(neuralNetwork, *inOutScore, random, weight);
 		auto pCandidateScore = FactoryTrain(*pCandidate, trainingData);
 		const float candidateScore = inOutScore->GetDeltaScore();
 		if (candidateScore < bestDeltaScore)
@@ -77,10 +88,16 @@ const bool NanMonkey::Train(
 			countDown -= 1;
 			if (countDown <= 0)
 			{
+				if(log) log("select small change");
 				return true;
 			}
 		}
 	}
+
+	//
+	//for (int index = 0; index < attemptMax; ++index)
+	//{
+	//}
 
 	return false;
 }

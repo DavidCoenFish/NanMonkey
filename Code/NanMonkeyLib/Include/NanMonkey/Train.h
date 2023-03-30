@@ -4,6 +4,7 @@ namespace NanMonkey
 {
 	class NeuralNetwork;
 	class TrainingData;
+	class TrainingScore;
 	class Random;
 
 	const bool Train(

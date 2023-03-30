@@ -9,12 +9,16 @@ NanMonkey::TrainingScore::PixelData::PixelData()
 : m_sampleCount(0)
 , m_sumPositive(0.0f)
 , m_sumNegative(0.0f)
+, m_targetValid(false)
+, m_targetLow(0.0f)
+, m_targetHigh(0.0f)
 {
 	return;
 }
 
-void NanMonkey::TrainingScore::PixelData::AddSample(const float delta)
+void NanMonkey::TrainingScore::PixelData::AddSample(const float target, const float actualResult)
 {
+	const float delta = actualResult - target;
 	m_sampleCount += 1;
 	if (0.0f <= delta)
 	{
@@ -24,6 +28,25 @@ void NanMonkey::TrainingScore::PixelData::AddSample(const float delta)
 	{
 		m_sumNegative += (-delta);
 	}
+
+	if(false == m_targetValid)
+	{
+		m_targetLow = target;
+		m_targetHigh = target;
+	}
+	else
+	{
+		m_targetValid = true;
+		if (target < m_targetLow)
+		{
+			m_targetLow = target;
+		}
+		if (m_targetHigh < target)
+		{
+			m_targetHigh = target;
+		}
+	}
+
 	return;
 }
 

@@ -83,11 +83,13 @@
     <None Include="Props\UnitTest.props" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Dimention.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Simple.cpp" />
     <ClCompile Include="Source\UnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Dimention.h" />
     <ClInclude Include="Source\Main.h" />
     <ClInclude Include="Source\Simple.h" />
     <ClInclude Include="Source\UnitTest.h" />

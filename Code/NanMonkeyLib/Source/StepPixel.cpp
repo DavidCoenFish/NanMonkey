@@ -3,8 +3,18 @@
 #include "NanMonkey/Stage.h"
 #include "NanMonkey/NanMonkey.h"
 
+NanMonkey::StepPixel::Reference::Reference(const float weight, const Index& index)
+	: m_weight(weight)
+	, m_index(index)
+{
+	return;
+}
+
+
 NanMonkey::StepPixel::StepPixel(const std::vector<Reference>& reference)
 	: m_referenceArray(reference)
+	//, m_scoreSumPositive(0.0f)
+	//, m_scoreSumNegative(0.0f)
 {
 	return;
 }
@@ -22,3 +32,25 @@ const float NanMonkey::StepPixel::EvaluePixel(const Dimention& dimention, const 
 	return result;
 }
 
+//void NanMonkey::StepPixel::ClearScore()
+//{
+//	m_scoreSumPositive = 0.0f;
+//	m_scoreSumNegative = 0.0f;
+//}
+
+//void NanMonkey::StepPixel::AddScore(const float score)
+//{
+//	if (0.0f < score)
+//	{
+//		m_scoreSumPositive += score;
+//	}
+//	if (score < 0.0f)
+//	{
+//		m_scoreSumNegative += score;
+//	}
+//}
+//
+//const float NanMonkey::StepPixel::GetScore() const
+//{
+//	return m_scoreSumPositive - m_scoreSumNegative;
+//}

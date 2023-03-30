@@ -13,6 +13,8 @@ namespace NanMonkey
 		class Reference
 		{
 		public:
+			Reference(const float weight, const Index& index);
+
 			const float GetWeight() const { return m_weight; }
 			const Index& GetIndex() const { return m_index; }
 
@@ -26,8 +28,16 @@ namespace NanMonkey
 
 		const float EvaluePixel(const Dimention& dimention, const Stage& input) const;
 
+		//void ClearScore();
+		//void AddScore(const float score);
+		//const float GetScore() const;
+
 	private:
 		//flag for pixel being locked~ don't want to mutate "visual cortex"
 		std::vector<Reference> m_referenceArray;
+
+		//float m_scoreSumPositive;
+		//float m_scoreSumNegative;
+
 	};
 }

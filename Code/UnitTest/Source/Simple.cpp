@@ -57,16 +57,29 @@ const bool Simple::UnitTest()
 
 		auto pNeuralNetwork = std::make_shared<NanMonkey::NeuralNetwork>();
 		auto pTrainingData = std::make_shared<NanMonkey::TrainingData>(trainingDataArray);
+		std::shared_ptr<NanMonkey::TrainingScore> pTrainingScore;
 
 		//train a neural network
-		for (int index = 0; index < 16; ++index)
+		for (int index = 0;index < 32; ++index)
 		{
-			pNeuralNetwork = NanMonkey::Train(*pNeuralNetwork, *pTrainingData, *random, [](const std::string& output){
-				MESSAGE(output)
-				});
+			if (false == NanMonkey::Train(
+				pNeuralNetwork, 
+				pTrainingScore,
+				*pNeuralNetwork, 
+				*pTrainingData, 
+				*random, 
+				[](const std::string& output){
+					MESSAGE(output)
+				}))
+			{
+				break;
+			}
+			ok &= UNIT_TEST_NOT_NULL(pNeuralNetwork.get());
+			if (false == ok)
+			{
+				break;
+			}
 		}
-
-
 	}
 
 	return ok;

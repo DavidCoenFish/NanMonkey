@@ -6,7 +6,7 @@
 #define UNIT_TEST_COMPARE(EXPECTED, GOT) UnitTest::Compare(EXPECTED, GOT, __FILE__, __func__, __LINE__, __TIME__)
 #define UNIT_TEST_NOT_COMPARE(NOT_EXPECTED, GOT) UnitTest::NotCompare(NOT_EXPECTED, GOT, __FILE__, __func__, __LINE__, __TIME__)
 #define UNIT_TEST_NOT_NULL(POINTER) UnitTest::NotNull(POINTER, __FILE__, __func__, __LINE__, __TIME__)
-#define MESSAGE(MESSAGE) std::cout << MESSAGE;
+#define MESSAGE(MESSAGE) std::cout << MESSAGE << std::endl;
 
 namespace UnitTest
 {
