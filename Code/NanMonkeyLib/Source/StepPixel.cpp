@@ -3,6 +3,11 @@
 #include "NanMonkey/Stage.h"
 #include "NanMonkey/NanMonkey.h"
 
+std::shared_ptr<NanMonkey::StepPixel> NanMonkey::StepPixel::FactoryCopy(const StepPixel& stepPixel)
+{
+	return std::make_shared<StepPixel>(stepPixel.m_locked, stepPixel.m_referenceArray);
+}
+
 NanMonkey::StepPixel::Reference::Reference(const float weight, const Index& index)
 	: m_weight(weight)
 	, m_index(index)
@@ -11,8 +16,9 @@ NanMonkey::StepPixel::Reference::Reference(const float weight, const Index& inde
 }
 
 
-NanMonkey::StepPixel::StepPixel(const std::vector<Reference>& reference)
-	: m_referenceArray(reference)
+NanMonkey::StepPixel::StepPixel(const bool locked, const std::vector<Reference>& reference)
+	: m_locked(locked)
+	, m_referenceArray(reference)
 	//, m_scoreSumPositive(0.0f)
 	//, m_scoreSumNegative(0.0f)
 {

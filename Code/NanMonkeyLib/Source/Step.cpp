@@ -5,16 +5,35 @@
 #include "NanMonkey/Stage.h"
 #include "NanMonkey/StepPixel.h"
 
-std::shared_ptr<NanMonkey::Step> NanMonkey::Step::FactoryCopyStep(const Dimention& dimention)
+std::shared_ptr<NanMonkey::Step> NanMonkey::Step::FactoryCopyStepWeight(const Dimention& dimention, const std::vector<float>& weight)
 {
 	const int length = dimention.CalculateLength();
+	NanAssert(length == (int)weight.size(), "invalid state");
 	std::vector<std::shared_ptr<StepPixel>> data(length);
 	for (int index = 0; index < length; ++index)
 	{
 		const auto indexObject = dimention.ReverseCalculateOffset(index);
+		const float pixelWeight = weight[index];
 		std::vector<StepPixel::Reference> referenceAray;
-		referenceAray.push_back(StepPixel::Reference(1.0f, indexObject));
-		data[index] = std::make_shared<StepPixel>(referenceAray);
+		bool locked = true;
+		if (0 != pixelWeight)
+		{
+			referenceAray.push_back(StepPixel::Reference(pixelWeight, indexObject));
+			locked = false;
+		}
+		data[index] = std::make_shared<StepPixel>(locked, referenceAray);
+	}
+
+	return std::make_shared<Step>(dimention, data);
+}
+
+std::shared_ptr<NanMonkey::Step> NanMonkey::Step::FactoryCopy(const Step& step)
+{
+	const Dimention dimention = step.GetDimention();
+	std::vector<std::shared_ptr<StepPixel>> data;
+	for (const auto& pStepPixel : step.m_data)
+	{
+		data.push_back(StepPixel::FactoryCopy(*pStepPixel));
 	}
 
 	return std::make_shared<Step>(dimention, data);

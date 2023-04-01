@@ -65,6 +65,7 @@ const bool Simple::UnitTest()
 			if (false == NanMonkey::Train(
 				pNeuralNetwork, 
 				pTrainingScore,
+				dimention,
 				*pNeuralNetwork, 
 				*pTrainingData, 
 				*random, 

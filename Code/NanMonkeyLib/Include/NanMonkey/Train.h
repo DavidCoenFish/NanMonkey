@@ -2,6 +2,7 @@
 
 namespace NanMonkey
 {
+	class Dimention;
 	class NeuralNetwork;
 	class TrainingData;
 	class TrainingScore;
@@ -10,6 +11,7 @@ namespace NanMonkey
 	const bool Train(
 		std::shared_ptr<NeuralNetwork>& outNeuralNetwork,
 		std::shared_ptr<TrainingScore>& inOutScore,
+		const Dimention& dimention,
 		const NeuralNetwork& neuralNetwork, 
 		const TrainingData& trainingData, 
 		Random& random, 

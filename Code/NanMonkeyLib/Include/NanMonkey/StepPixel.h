@@ -24,9 +24,14 @@ namespace NanMonkey
 		};
 
 	public:
-		StepPixel(const std::vector<Reference>& reference = std::vector<Reference>());
+		static std::shared_ptr<StepPixel> FactoryCopy(const StepPixel& stepPixel);
+
+		StepPixel(const bool locked, const std::vector<Reference>& reference = std::vector<Reference>());
 
 		const float EvaluePixel(const Dimention& dimention, const Stage& input) const;
+
+		void SetLocked(const bool locked){ m_locked = locked; }
+		const bool GetLocked() const { return m_locked; }
 
 		//void ClearScore();
 		//void AddScore(const float score);
@@ -34,6 +39,7 @@ namespace NanMonkey
 
 	private:
 		//flag for pixel being locked~ don't want to mutate "visual cortex"
+		bool m_locked;
 		std::vector<Reference> m_referenceArray;
 
 		//float m_scoreSumPositive;

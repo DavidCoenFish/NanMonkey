@@ -9,15 +9,31 @@
 //
 //}
 //
-//std::shared_ptr<NanMonkey::NeuralNetwork> NanMonkey::NeuralNetwork::FactoryPerturb(const NeuralNetwork& neuralNetwork, const TrainingScore& score, const Random& random, const float weight)
-//{
-//}
+
+//static std::shared_ptr<NeuralNetwork> FactoryPerturb(const NeuralNetwork& neuralNetwork, const TrainingScore& score, const Random& random, const float mutateStrengthNormalised);
+std::shared_ptr<NanMonkey::NeuralNetwork> NanMonkey::NeuralNetwork::FactoryPerturb(const NeuralNetwork& neuralNetwork, const TrainingScore& score, const Random& random, const float mutateStrengthNormalised)
+{
+	std::vector<std::shared_ptr<Step>> stepArrayCopy;
+	for (const auto& step : neuralNetwork.m_stepArray)
+	{
+		stepArrayCopy.push_back(Step::FactoryCopy(*step));
+	}
+
+	//get a sorted array of the worst pixels from TrainingScore
+
+	return std::make_shared<NeuralNetwork>(stepArrayCopy);
+}
 
 //
 //NanMonkey::NeuralNetwork::NeuralNetwork(const NeuralNetwork& rhs)
 //	: m_stepArray(rhs.m_stepArray)
 //{
 //	return;
+//}
+
+//std::shared_ptr<NanMonkey::NeuralNetwork> NanMonkey::NeuralNetwork::FactoryClone(const NeuralNetwork& neuralNetwork)
+//{
+//
 //}
 
 NanMonkey::NeuralNetwork::NeuralNetwork(const std::vector<std::shared_ptr<Step>>& stepArray)

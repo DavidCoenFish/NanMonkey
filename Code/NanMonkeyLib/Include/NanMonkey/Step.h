@@ -10,15 +10,14 @@ namespace NanMonkey
 	class Step
 	{
 	public:
-		static std::shared_ptr<Step> FactoryCopyStep(const Dimention& dimention); 
+		static std::shared_ptr<Step> FactoryCopyStepWeight(const Dimention& dimention, const std::vector<float>& weight); 
+		static std::shared_ptr<Step> FactoryCopy(const Step& step); 
 
 		Step(const Dimention& dimention, const std::vector<std::shared_ptr<StepPixel>>& data = std::vector<std::shared_ptr<StepPixel>>());
 
-		std::shared_ptr<Stage> Perform(const Stage& input) const;
+		const Dimention& GetDimention() const { return m_dimention; }
 
-		//visit pixel? getPixel? tweak pixel 
-		//void ClearScore();
-		//const float GetScore();
+		std::shared_ptr<Stage> Perform(const Stage& input) const;
 
 	private:
 		Dimention m_dimention;

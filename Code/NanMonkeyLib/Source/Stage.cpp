@@ -58,8 +58,19 @@ const float NanMonkey::Stage::GetValue(const Index& index) const
 	return 0.0f;
 }
 
+void NanMonkey::Stage::Visitor(const Stage& target, const std::function<void(const float)>& visitor)
+{
+	auto targetIter = target.m_data.cbegin();
+	while (targetIter != target.m_data.cend())
+	{
+		visitor((*targetIter));
+		++targetIter;
+	}
+	return;
+}
+
 //void NanMonkey::Stage::GatherDelta(std::vector<float>& delta, const Stage& target, const Stage& actualResult)
-void NanMonkey::Stage::DeltaVisitor(const Stage& target, const Stage& actualResult, const std::function<void(const float)>& visitor)
+void NanMonkey::Stage::DeltaVisitor(const Stage& target, const Stage& actualResult, const std::function<void(const float, const float)>& visitor)
 {
 	NanAssert(target.m_dimention == actualResult.m_dimention, "invaild size");
 	//const int count = target.m_dimention.CalculateLength();
@@ -68,8 +79,7 @@ void NanMonkey::Stage::DeltaVisitor(const Stage& target, const Stage& actualResu
 	auto actualResultIter = actualResult.m_data.cbegin();
 	while ((targetIter != target.m_data.cend()) && (actualResultIter != actualResult.m_data.cend()))
 	{
-		const float delta = (*targetIter) - (*actualResultIter);
-		visitor(delta);
+		visitor((*targetIter), (*actualResultIter));
 		++targetIter;
 		++actualResultIter;
 	}

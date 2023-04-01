@@ -10,6 +10,7 @@ namespace NanMonkey
 
 		Random(const int seed);
 		const bool TestPassFail(const float threashold = 0.5f);
+		const float GetPlusFloat(const float scale);
 		//range [-radius to +radius]
 		const float GetPlusMinusFloat(const float radius);
 		const int GetPlusMinusInt(const int radius);

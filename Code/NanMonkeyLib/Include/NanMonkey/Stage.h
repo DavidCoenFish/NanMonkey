@@ -19,7 +19,8 @@ namespace NanMonkey
 		const Dimention& GetDimention() const { return m_dimention; }
 		const float GetValue(const Index& index) const;
 
-		static void DeltaVisitor(const Stage& target, const Stage& actualResult, const std::function<void(const float)>& visitor);
+		static void Visitor(const Stage& target, const std::function<void(const float)>& visitor);
+		static void DeltaVisitor(const Stage& target, const Stage& actualResult, const std::function<void(const float, const float)>& visitor);
 		//static void GatherDelta(std::vector<float>& delta, const Stage& target, const Stage& actualResult);
 
 	private:

@@ -9,40 +9,48 @@
 
 namespace 
 {
-	std::shared_ptr<NanMonkey::TrainingScore> FactoryTrain(const NanMonkey::NeuralNetwork& neuralNetwork, const NanMonkey::TrainingData& trainingData)
-	{
-		std::shared_ptr<NanMonkey::TrainingScore> pResult;
+	//std::shared_ptr<NanMonkey::TrainingScore> FactoryTrain(const NanMonkey::NeuralNetwork& neuralNetwork, const NanMonkey::TrainingData& trainingData)
 
-		trainingData.Visit([&](const NanMonkey::Stage& input,const NanMonkey::Stage& target){
-			if (nullptr == pResult)
-			{
-				pResult = std::make_shared<NanMonkey::TrainingScore>(target.GetDimention());
-			}
-			auto actualResult = neuralNetwork.Perform(input);
-			pResult->GatherScore(target, *actualResult);
-			});
-
-		return pResult;
-	}
-
-	std::shared_ptr<NanMonkey::NeuralNetwork> FactoryNeuralNetworkSeed(const NanMonkey::Dimention& score)
+	std::shared_ptr<NanMonkey::NeuralNetwork> FactoryNeuralNetworkSeed(const NanMonkey::Dimention& dimention, const std::vector<float>& weight)
 	{
 		//make a copy step
 		std::vector<std::shared_ptr<NanMonkey::Step>> stepArray;
-		stepArray.push_back(NanMonkey::Step::FactoryCopyStep(score.GetDimention()));
+		stepArray.push_back(NanMonkey::Step::FactoryCopyStepWeight(dimention, weight));
 
 		return std::make_shared<NanMonkey::NeuralNetwork>(stepArray);
 	}
 
-	std::shared_ptr<NanMonkey::NeuralNetwork> FactoryNeuralNetworkPerturb(const NanMonkey::NeuralNetwork& neuralNetwork, const NanMonkey::TrainingScore& score, const NanMonkey::Random& random, const float weight)
-	{
-		return nullptr;
-	}
+	//std::shared_ptr<NanMonkey::NeuralNetwork> FactoryNeuralNetworkPerturb(const NanMonkey::NeuralNetwork& neuralNetwork, const NanMonkey::TrainingScore& score, NanMonkey::Random& random, const float mutateEnergyNormalised)
+	//{
+	//}
+
+
+	//	// types of changes [change link weight, remove link, add link, add step]
+	//	const int count = std::max(1, (int)((mutateEnergyNormalised * mutateEnergyNormalised) * 128));
+	//	for (int index = 0; index < count; ++index)
+	//	{
+	//		const float rand = random.GetPlusMinusFloat(1.0f);
+	//		const int choice = std::min((int)((rand * rand) * 4), 3);
+	//		switch(choice)
+	//		{
+	//		default:
+	//			break;
+	//		case 0:
+
+	//			break;
+	//		}
+
+
+	//	}
+
+	//	return nullptr;
+	//}
 }
 
 const bool NanMonkey::Train(
 	std::shared_ptr<NeuralNetwork>& outNeuralNetwork,
 	std::shared_ptr<TrainingScore>& inOutScore,
+	const Dimention& dimention,
 	const NeuralNetwork& neuralNetwork, 
 	const TrainingData& trainingData, 
 	Random& random, 
@@ -50,7 +58,7 @@ const bool NanMonkey::Train(
 	const int attemptMax
 	)
 {
-	inOutScore = inOutScore ? inOutScore : FactoryTrain(neuralNetwork, trainingData);
+	inOutScore = inOutScore ? inOutScore : TrainingScore::Factory(dimention, neuralNetwork, trainingData);
 	if (nullptr == inOutScore)
 	{
 		return false;
@@ -67,7 +75,23 @@ const bool NanMonkey::Train(
 	if (0 == stepCount)
 	{
 		if(log) log("seed NeuralNetwork");
-		outNeuralNetwork = FactoryNeuralNetworkSeed(*inOutScore);
+		std::vector<float> weightArray;
+		inOutScore->VisitTargetRange([&](const bool valid, const float low, const float high){
+			float weight = 0.0f;
+			if (valid)
+			{
+				if ((0.0f != low) || (0.0f != high))
+				{
+					weight = std::max(abs(low), abs(high));
+					if (high <= 0.0f)
+					{
+						weight = -weight;
+					}
+				}
+			}
+			weightArray.push_back(weight);
+			});
+		outNeuralNetwork = FactoryNeuralNetworkSeed(dimention, weightArray);
 		inOutScore = nullptr;
 		return true;
 	}
@@ -77,9 +101,10 @@ const bool NanMonkey::Train(
 	int countDown = 3;
 	for (int index = 0; index < attemptMax; ++index)
 	{
-		const float weight = ((float)(index + 1)) / ((float)(attemptMax));
-		auto pCandidate = FactoryNeuralNetworkPerturb(neuralNetwork, *inOutScore, random, weight);
-		auto pCandidateScore = FactoryTrain(*pCandidate, trainingData);
+		const float mutateEnergyNormalised = ((float)(index + 1)) / ((float)(attemptMax));
+		//auto pCandidate = FactoryNeuralNetworkPerturb(neuralNetwork, *inOutScore, random, mutateEnergyNormalised);
+		auto pCandidate = NeuralNetwork::FactoryPerturb(neuralNetwork, *inOutScore, random, mutateEnergyNormalised);
+		auto pCandidateScore = TrainingScore::Factory(dimention, *pCandidate, trainingData);
 		const float candidateScore = inOutScore->GetDeltaScore();
 		if (candidateScore < bestDeltaScore)
 		{

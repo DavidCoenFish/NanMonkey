@@ -2,23 +2,20 @@
 #include "NanMonkey/TrainingScore.h"
 
 #include "NanMonkey/NanMonkey.h"
+#include "NanMonkey/NeuralNetwork.h"
 #include "NanMonkey/Stage.h"
-
+#include "NanMonkey/TrainingData.h"
 
 NanMonkey::TrainingScore::PixelData::PixelData()
 : m_sampleCount(0)
 , m_sumPositive(0.0f)
 , m_sumNegative(0.0f)
-, m_targetValid(false)
-, m_targetLow(0.0f)
-, m_targetHigh(0.0f)
 {
 	return;
 }
 
-void NanMonkey::TrainingScore::PixelData::AddSample(const float target, const float actualResult)
+void NanMonkey::TrainingScore::PixelData::AddSample(const float delta)
 {
-	const float delta = actualResult - target;
 	m_sampleCount += 1;
 	if (0.0f <= delta)
 	{
@@ -27,24 +24,6 @@ void NanMonkey::TrainingScore::PixelData::AddSample(const float target, const fl
 	else if (delta < 0.0f)
 	{
 		m_sumNegative += (-delta);
-	}
-
-	if(false == m_targetValid)
-	{
-		m_targetLow = target;
-		m_targetHigh = target;
-	}
-	else
-	{
-		m_targetValid = true;
-		if (target < m_targetLow)
-		{
-			m_targetLow = target;
-		}
-		if (m_targetHigh < target)
-		{
-			m_targetHigh = target;
-		}
 	}
 
 	return;
@@ -64,27 +43,86 @@ const float NanMonkey::TrainingScore::PixelData::GetScore() const
 	return (m_sumPositive + m_sumNegative);
 }
 
-NanMonkey::TrainingScore::TrainingScore(const Dimention& dimention)
-	: m_dimention(dimention)
-	, m_deltaScoreValid(false)
-	, m_deltaScore(0.0f)
+NanMonkey::TrainingScore::TargetData::TargetData()
+	: m_targetValid(false)
+	, m_targetLow(0.0f)
+	, m_targetHigh(0.0f)
 {
-	const int count = dimention.CalculateLength();
-	m_pixelDataArray.resize(count);
 	return;
 }
 
-void NanMonkey::TrainingScore::GatherScore(const Stage& target, const Stage& actualResult)
+void NanMonkey::TrainingScore::TargetData::AddSample(const float target)
 {
-	NanAssert(target.GetDimention() == m_dimention, "invalid size");
-	NanAssert(actualResult.GetDimention() == m_dimention, "invalid size");
-	auto pixelIter = m_pixelDataArray.begin();
-	Stage::DeltaVisitor(target, actualResult, [&](const float delta){
-		pixelIter->AddSample(delta);
-		++pixelIter;
-	});
-	m_deltaScoreValid = false;
+	if(false == m_targetValid)
+	{
+		m_targetValid = true;
+		m_targetLow = target;
+		m_targetHigh = target;
+	}
+	else
+	{
+		if (target < m_targetLow)
+		{
+			m_targetLow = target;
+		}
+		if (m_targetHigh < target)
+		{
+			m_targetHigh = target;
+		}
+	}
 }
+
+void NanMonkey::TrainingScore::TargetData::Visit(const std::function<void(const bool, const float, const float)>& visitor) const
+{
+	visitor(m_targetValid, m_targetLow, m_targetHigh);
+}
+
+std::shared_ptr<NanMonkey::TrainingScore> NanMonkey::TrainingScore::Factory(const Dimention& dimention, const NeuralNetwork& neuralNetwork, const TrainingData& trainingData)
+{
+	const int length = dimention.CalculateLength();
+	std::vector<PixelData> pixelDataArray(length);
+	std::vector<TargetData> targetDataArray(length);
+	{
+		trainingData.Visit([&](const NanMonkey::Stage& input,const NanMonkey::Stage& target){
+			auto actualResult = neuralNetwork.Perform(input);
+
+			auto pixelIter = pixelDataArray.begin();
+			Stage::DeltaVisitor(target, *actualResult, [&](const float target, const float actual){
+				pixelIter->AddSample(actual - target);
+				++pixelIter;
+				});
+
+			auto tagetIter = targetDataArray.begin();
+			Stage::Visitor(target, [&](const float value){
+				tagetIter->AddSample(value);
+				++tagetIter;
+			});
+		});
+	}
+
+	auto pResult = std::make_shared<TrainingScore>(dimention, pixelDataArray, targetDataArray);
+	return pResult;
+
+}
+
+NanMonkey::TrainingScore::TrainingScore(const Dimention& dimention, const std::vector<PixelData>& pixelDataArray, const std::vector<TargetData>& targetDataArray)
+	: m_dimention(dimention)
+	, m_pixelDataArray(pixelDataArray)
+	, m_targetDataArray(targetDataArray)
+	, m_deltaScoreValid(false)
+	, m_deltaScore(0.0f)
+{
+	return;
+}
+
+//void NanMonkey::TrainingScore::GatherScore(const Stage& target, const Stage& actualResult)
+//{
+//	auto pixelIter = m_pixelDataArray.begin();
+//	Stage::DeltaVisitor(target, actualResult, [&](const float targetValue, const float actualValue){
+//		pixelIter->AddSample(actualValue - targetValue);
+//		++pixelIter;
+//	});
+//}
 
 const float NanMonkey::TrainingScore::GetDeltaScore()
 {
@@ -92,15 +130,22 @@ const float NanMonkey::TrainingScore::GetDeltaScore()
 	{
 		m_deltaScoreValid = true;
 		m_deltaScore = 0.0f;
-		const int count = m_dimention.CalculateLength();
-		const float mul = count ? 1.0f / ((float)(count)) : 0.0f;
-		for (const auto& pixel : m_pixelDataArray)
+
+		for(const auto& pixelData: m_pixelDataArray)
 		{
-			const float deltaScore = pixel.GetScore();
-			m_deltaScore += mul * deltaScore;
+			m_deltaScore += pixelData.GetScore();
 		}
 	}
 
 	return m_deltaScore;
 }
+
+void NanMonkey::TrainingScore::VisitTargetRange(const std::function<void(const bool, const float, const float)>& visitor) const
+{
+	for(const auto& targetData: m_targetDataArray)
+	{
+		targetData.Visit(visitor);
+	}
+}
+
 

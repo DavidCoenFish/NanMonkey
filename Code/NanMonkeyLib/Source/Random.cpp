@@ -25,6 +25,11 @@ const bool NanMonkey::Random::TestPassFail(const float threashold)
 	return (m_distributionZeroPlusOne(m_random) < threashold);
 }
 
+const float NanMonkey::Random::GetPlusFloat(const float scale)
+{
+	return (m_distributionZeroPlusOne(m_random) * scale);
+}
+
 const float NanMonkey::Random::GetPlusMinusFloat(const float radius)
 {
 	return (radius * m_distributionMinusOnePlusOne(m_random));
