@@ -9,6 +9,7 @@
 #include <memory>
 #include <ostream> 
 #include <random>
+#include <set>
 #include <sstream>
 #include <string>
 #include <vector>

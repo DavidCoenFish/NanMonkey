@@ -59,7 +59,8 @@ namespace NanMonkey
 		const float GetDeltaScore();
 		const Dimention& GetDimention() const { return m_dimention; }
 
-		void VisitTargetRange(const std::function<void(const bool, const float, const float)>& visitor) const;
+		void VisitPixelScore(const std::function<void(const int, const float)>& visitor) const;
+		void VisitTargetData(const std::function<void(const bool, const float, const float)>& visitor) const;
 
 	private:
 		Dimention m_dimention;

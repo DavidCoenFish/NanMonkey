@@ -60,14 +60,18 @@ const bool Simple::UnitTest()
 		std::shared_ptr<NanMonkey::TrainingScore> pTrainingScore;
 
 		//train a neural network
-		for (int index = 0;index < 32; ++index)
+		for (int index = 0;index < 256; ++index)
 		{
+			//add a references, so that during traning, a new candidate is assigned, that the top level NeuralNetwork/score is not cleared
+			auto pCurrentNeuralNetwork = pNeuralNetwork;
+			auto pCurrentTrainingScore = pTrainingData;
+
 			if (false == NanMonkey::Train(
 				pNeuralNetwork, 
 				pTrainingScore,
 				dimention,
-				*pNeuralNetwork, 
-				*pTrainingData, 
+				*pCurrentNeuralNetwork, 
+				*pCurrentTrainingScore, 
 				*random, 
 				[](const std::string& output){
 					MESSAGE(output)

@@ -35,6 +35,17 @@ const float NanMonkey::Random::GetPlusMinusFloat(const float radius)
 	return (radius * m_distributionMinusOnePlusOne(m_random));
 }
 
+const int NanMonkey::Random::GetPlusMinusInt(const int radius)
+{
+	return (int)((radius + 1) * m_distributionMinusOnePlusOne(m_random));
+}
+
+const int NanMonkey::Random::GetIndex(const size_t size)
+{
+	const int result = std::min((int)(m_distributionZeroPlusOne(m_random) * size), (int)(size - 1));
+	return result;
+}
+
 void NanMonkey::Random::GenerateRangeFloatVisitor(const int count, const float low, const float high, const std::function<void(const float)>& visitor)
 {
 	const float mid = (low + high) * 0.5f;

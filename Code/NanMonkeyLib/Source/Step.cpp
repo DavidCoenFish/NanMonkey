@@ -4,6 +4,7 @@
 #include "NanMonkey/NanMonkey.h"
 #include "NanMonkey/Stage.h"
 #include "NanMonkey/StepPixel.h"
+#include "NanMonkey/Random.h"
 
 std::shared_ptr<NanMonkey::Step> NanMonkey::Step::FactoryCopyStepWeight(const Dimention& dimention, const std::vector<float>& weight)
 {
@@ -22,6 +23,23 @@ std::shared_ptr<NanMonkey::Step> NanMonkey::Step::FactoryCopyStepWeight(const Di
 			locked = false;
 		}
 		data[index] = std::make_shared<StepPixel>(locked, referenceAray);
+	}
+
+	return std::make_shared<Step>(dimention, data);
+}
+
+std::shared_ptr<NanMonkey::Step> NanMonkey::Step::FactoryCopyRandom(const Dimention& dimention, Random& random, const float mutateEnergyNormalised)
+{
+	const int length = dimention.CalculateLength();
+	std::vector<std::shared_ptr<StepPixel>> data(length);
+	for (int index = 0; index < length; ++index)
+	{
+		const auto indexObject = dimention.ReverseCalculateOffset(index);
+		std::vector<StepPixel::Reference> referenceAray;
+		referenceAray.push_back(StepPixel::Reference(random.GetPlusMinusFloat(1.0f), indexObject));
+		auto pStepPixel = std::make_shared<StepPixel>(false, referenceAray);
+		pStepPixel->Mutate(dimention, random, mutateEnergyNormalised);
+		data[index] = pStepPixel;
 	}
 
 	return std::make_shared<Step>(dimention, data);
@@ -67,3 +85,13 @@ std::shared_ptr<NanMonkey::Stage> NanMonkey::Step::Perform(const Stage& input) c
 
 	return std::make_shared<Stage>(m_dimention, data);
 }
+
+std::shared_ptr<NanMonkey::StepPixel> NanMonkey::Step::GetStepPixel(const int offset) const
+{
+	if ((0 <= offset) && (offset < (int)m_data.size()))
+	{
+		return m_data[offset];
+	}
+	return nullptr;
+}
+

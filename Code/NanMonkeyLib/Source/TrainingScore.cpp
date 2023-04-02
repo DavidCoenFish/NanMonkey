@@ -140,7 +140,18 @@ const float NanMonkey::TrainingScore::GetDeltaScore()
 	return m_deltaScore;
 }
 
-void NanMonkey::TrainingScore::VisitTargetRange(const std::function<void(const bool, const float, const float)>& visitor) const
+void NanMonkey::TrainingScore::VisitPixelScore(const std::function<void(const int, const float)>& visitor) const
+{
+	int trace = 0;
+	for(const auto& pixelData: m_pixelDataArray)
+	{
+		//m_dimention.ReverseCalculateOffset(trace)
+		visitor(trace, pixelData.GetScore());
+		trace += 1;
+	}
+}
+
+void NanMonkey::TrainingScore::VisitTargetData(const std::function<void(const bool, const float, const float)>& visitor) const
 {
 	for(const auto& targetData: m_targetDataArray)
 	{

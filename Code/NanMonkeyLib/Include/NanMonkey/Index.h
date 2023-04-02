@@ -3,6 +3,7 @@
 namespace NanMonkey
 {
 	class Dimention;
+	class Random;
 
 	class Index
 	{
@@ -10,6 +11,8 @@ namespace NanMonkey
 		//static Index Factory(const Dimention& dimention, const int offset);
 
 		Index(const std::vector<int>& data);
+
+		void Mutate(const Dimention& dimention, Random& random, const float mutateEnergyNormalised);
 
 		const int GetCount() const;
 		const int GetValue(const int index) const;

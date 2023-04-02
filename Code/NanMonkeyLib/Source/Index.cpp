@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "NanMonkey/Index.h"
 #include "NanMonkey/Dimention.h"
+#include "NanMonkey/Random.h"
 
 //NanMonkey::Index NanMonkey::Index::Factory(const Dimention& dimention, const int offset)
 //{
@@ -10,6 +11,20 @@
 NanMonkey::Index::Index(const std::vector<int>& data)
 	: m_data(data)
 {
+	return;
+}
+
+void NanMonkey::Index::Mutate(const Dimention& dimention, Random& random, const float mutateEnergyNormalised)
+{
+	for (int index = 0; index < (int)m_data.size(); ++index)
+	{
+		const int range = dimention.GetValue(index);
+		const int rangeMutated = std::max(1, (int)(range * mutateEnergyNormalised));
+		int newSubIndex = m_data[index] + random.GetPlusMinusInt(rangeMutated);
+		newSubIndex = std::max(0, newSubIndex);
+		newSubIndex = std::min(range - 1, newSubIndex);
+		m_data[index] = newSubIndex;
+	}
 	return;
 }
 

@@ -3,7 +3,6 @@
 #include "NanMonkey/Stage.h"
 #include "NanMonkey/Step.h"
 
-
 //std::shared_ptr<NanMonkey::NeuralNetwork> NanMonkey::NeuralNetwork::FactorySeed(const TrainingScore& score)
 //{
 //
@@ -11,18 +10,10 @@
 //
 
 //static std::shared_ptr<NeuralNetwork> FactoryPerturb(const NeuralNetwork& neuralNetwork, const TrainingScore& score, const Random& random, const float mutateStrengthNormalised);
-std::shared_ptr<NanMonkey::NeuralNetwork> NanMonkey::NeuralNetwork::FactoryPerturb(const NeuralNetwork& neuralNetwork, const TrainingScore& score, const Random& random, const float mutateStrengthNormalised)
-{
-	std::vector<std::shared_ptr<Step>> stepArrayCopy;
-	for (const auto& step : neuralNetwork.m_stepArray)
-	{
-		stepArrayCopy.push_back(Step::FactoryCopy(*step));
-	}
-
+//std::shared_ptr<NanMonkey::NeuralNetwork> NanMonkey::NeuralNetwork::FactoryPerturb(const NeuralNetwork& neuralNetwork, const TrainingScore& score, const Random& random, const float mutateStrengthNormalised)
 	//get a sorted array of the worst pixels from TrainingScore
-
-	return std::make_shared<NeuralNetwork>(stepArrayCopy);
-}
+	//mutations [change weight, change reference, add link, remove link, add step]
+	//merge step, it there is a step without locked pixels and under max links
 
 //
 //NanMonkey::NeuralNetwork::NeuralNetwork(const NeuralNetwork& rhs)
@@ -69,6 +60,16 @@ std::shared_ptr<NanMonkey::Stage> NanMonkey::NeuralNetwork::Perform(const Stage&
 const int NanMonkey::NeuralNetwork::GetStepCount() const
 {
 	return (int)m_stepArray.size();
+}
+
+std::vector<std::shared_ptr<NanMonkey::Step>> NanMonkey::NeuralNetwork::MakeStepCopy() const
+{
+	std::vector<std::shared_ptr<Step>> stepArrayCopy;
+	for (const auto& step : m_stepArray)
+	{
+		stepArrayCopy.push_back(Step::FactoryCopy(*step));
+	}
+	return stepArrayCopy;
 }
 
 //void NanMonkey::NeuralNetwork::ClearScore()

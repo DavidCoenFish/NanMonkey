@@ -14,6 +14,7 @@ namespace NanMonkey
 		//range [-radius to +radius]
 		const float GetPlusMinusFloat(const float radius);
 		const int GetPlusMinusInt(const int radius);
+		const int GetIndex(const size_t size);
 
 		void GenerateRangeFloatVisitor(const int count, const float low, const float high, const std::function<void(const float)>& visitor);
 

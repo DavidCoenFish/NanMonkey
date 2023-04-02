@@ -14,17 +14,18 @@ namespace NanMonkey
 		//static std::shared_ptr<NeuralNetwork> FactoryScoreMutateNoCortex(Random& random, 
 
 		//static std::shared_ptr<NeuralNetwork> FactorySeed(const TrainingScore& score);
-		static std::shared_ptr<NeuralNetwork> FactoryPerturb(const NeuralNetwork& neuralNetwork, const TrainingScore& score, const Random& random, const float mutateStrengthNormalised);
+		//static std::shared_ptr<NeuralNetwork> FactoryPerturb(const NeuralNetwork& neuralNetwork, const TrainingScore& score, const Random& random, const float mutateStrengthNormalised);
 
 		//NeuralNetwork(const NeuralNetwork& rhs);
 		//static std::shared_ptr<NeuralNetwork> FactoryClone(const NeuralNetwork& neuralNetwork);
-
-
 
 		NeuralNetwork(const std::vector<std::shared_ptr<Step>>& stepArray = std::vector<std::shared_ptr<Step>>());
 
 		std::shared_ptr<Stage> Perform(const Stage& input) const;
 		const int GetStepCount() const;
+
+		//expose data to allow training "factories"
+		std::vector<std::shared_ptr<Step>> MakeStepCopy() const;
 
 		//void ClearScore();
 		//const float GetScore();
