@@ -1,0 +1,6 @@
+todo
+
+want to make something that can be given all the permutations of [2,2] zero or one, and clasify as [solid, horizontal, vetical, diagonal]
+want to make something that can be given [solid, horizontal, vetical, diagonal] and generate [2,2] zeo or one pattens
+want to make something that can be given a circle in an image and give [radius, x, y]
+want to make something that can be given [radius, x, y] can generate an image

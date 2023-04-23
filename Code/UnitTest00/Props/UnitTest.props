@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <BuildPath>$(ProjectDir)..\..\Build\$(ProjectName)\$(PlatformName)\$(Configuration)\</BuildPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutDir>$(BuildPath)Output\</OutDir>
+    <IntDir>$(BuildPath)Intermediate\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\NanMonkeyLib\Include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\Build\NanMonkeyLib00\$(Platform)\$(Configuration)\Output\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>NanMonkeyLib00.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="BuildPath">
+      <Value>$(BuildPath)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
