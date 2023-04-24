@@ -8,7 +8,7 @@ int main()
 	bool ok = true;
 	std::cout << "UnitTest" << std::endl;
 	ok &= Dimention::UnitTest();
-	//ok &= Simple::UnitTest();
+	ok &= Simple::UnitTest();
 
 	//ok &= NanMonkey::UnitTest();
 	//ok &= Network::UnitTest();

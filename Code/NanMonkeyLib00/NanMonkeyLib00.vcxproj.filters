@@ -31,6 +31,12 @@
     <ClCompile Include="Source\Index.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\TrainingData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Stage.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\pch.h">
@@ -46,6 +52,12 @@
       <Filter>Include\NanMonkey</Filter>
     </ClInclude>
     <ClInclude Include="Include\NanMonkey\Index.h">
+      <Filter>Include\NanMonkey</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\NanMonkey\TrainingData.h">
+      <Filter>Include\NanMonkey</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\NanMonkey\Stage.h">
       <Filter>Include\NanMonkey</Filter>
     </ClInclude>
   </ItemGroup>

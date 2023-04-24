@@ -2,17 +2,29 @@
 
 namespace NanMonkey
 {
-	void NanAssert(const bool condition, const char* message);
+	class Dimention;
+	class Stage;
+	class TrainingDataImplementation;
 
-	// If given NAN, return NAN
-	const float NanClamp(const float value, const float low, const float high);
+	class TrainingData
+	{
+	public:
+		static std::shared_ptr< TrainingData > Factory(
+			const Dimention& inputDimention,
+			const Dimention& outputDimention,
+			const std::vector< std::pair< std::vector< float >, std::vector< float > > >& trainingData
+		);
 
-//#define ASSERT(CONDITION, MESSAGE) assert(CONDITION)
-//#define MESSAGE(MESSAGE) std::cout << MESSAGE;
-//
-//
-//#define STREAM_POD_WRITE(STREAM, VALUE) STREAM.write((char*)&VALUE,sizeof(VALUE))
-//#define STREAM_POD_READ(STREAM, VALUE) STREAM.read((char*)&VALUE,sizeof(VALUE))
+		TrainingData(
+			const Dimention& inputDimention,
+			const Dimention& outputDimention,
+			const std::vector< std::pair< std::shared_ptr< Stage >, std::shared_ptr< Stage > > >& data
+		);
 
+		void Visitor(const std::function<void(const Stage&, const Stage&)>& visitor);
 
+	private:
+		std::unique_ptr< TrainingDataImplementation > m_implementation;
+
+	};
 }
